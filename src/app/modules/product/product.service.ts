@@ -5,11 +5,9 @@ import { Brand } from '../brand/brand.model';
 import { productSearchableFields } from './product.constants';
 import { TProduct } from './product.interface';
 import { Product } from './product.model';
-import { generateSKU } from './product.utils';
 
 const createProductIntoDB = async (payload: TProduct) => {
-  const sku = generateSKU(payload.name);
-  payload.sku = sku; // store keeping unit
+
   // check brand is valid
   const brand = await Brand.findById({_id : payload.brand});
   if(!brand){

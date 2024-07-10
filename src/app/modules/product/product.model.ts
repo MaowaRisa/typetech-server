@@ -2,7 +2,6 @@ import { Schema, model } from 'mongoose';
 import { IProductModel,TProduct } from './product.interface';
 
 const productSchema = new Schema<TProduct, IProductModel>({
-  sku: {type:String},
   name: { type: String, required: true },
   brand: { type: Schema.Types.ObjectId, ref: 'Brand'},
   quantity: {type: Number, required: true},

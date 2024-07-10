@@ -6,7 +6,7 @@ import { BrandControllers } from './brand.controller';
 const router = express.Router();
 
 router.post(
-  '/create-brand',
+  '/',
   validateRequest(
     brandValidations.createBrandValidationSchema
   ),
