@@ -5,7 +5,7 @@ import sendResponse from '../../utility/sendResponse';
 import httpStatus from 'http-status';
 
 const createProduct: RequestHandler = catchAsync(async (req, res) => {
-  const result = await ProductServices.createProductIntoDB(req.body);
+  const result = await ProductServices.createProductIntoDB(req.file, req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -37,7 +37,7 @@ const getSingleProduct = catchAsync(async (req, res) => {
 
 const updateProduct = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await ProductServices.updateProductIntoDB(id, req.body);
+  const result = await ProductServices.updateProductIntoDB(id, req.body, req.file);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,

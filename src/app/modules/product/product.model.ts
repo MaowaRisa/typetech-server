@@ -8,6 +8,7 @@ const productSchema = new Schema<TProduct, IProductModel>({
   price: { type: Number, required: true },
   rating: { type: Number, default: 0},
   description: { type: String, required: true },
+  image: { type: String, required: true },
   isDeleted: { type: Boolean, default: false },
 });
 // Static method for checking the deleted product

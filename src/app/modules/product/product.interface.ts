@@ -7,6 +7,7 @@ export type TProduct = {
   price: number;
   rating: number;
   description: string;
+  image: string;
   isDeleted: boolean;
 };
 // static method
