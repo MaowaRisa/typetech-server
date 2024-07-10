@@ -8,12 +8,11 @@ import { TProduct } from './product.interface';
 import { Product } from './product.model';
 import { sendImageToCloudinary } from '../../utility/sendImageToCloudinary';
 
-const createProductIntoDB = async (file: any,payload: TProduct) => {
-
+const createProductIntoDB = async (file: any, payload: TProduct) => {
   // check brand is valid
-  const brand = await Brand.findById({_id : payload.brand});
-  if(!brand){
-    throw new AppError(httpStatus.NOT_FOUND, "No brand available");
+  const brand = await Brand.findById({ _id: payload.brand });
+  if (!brand) {
+    throw new AppError(httpStatus.NOT_FOUND, 'No brand available');
   }
   // file upload
   if (file) {
@@ -28,17 +27,14 @@ const createProductIntoDB = async (file: any,payload: TProduct) => {
   return result;
 };
 const getAllProductsFromDB = async (query: Record<string, unknown>) => {
-  const productQuery = new QueryBuilder(
-    Product.find(),query
-  )
-  .search(productSearchableFields)
-  .filter()
-  .sort()
-  .paginate()
-  .fields();
+  const productQuery = new QueryBuilder(Product.find(), query)
+    .search(productSearchableFields)
+    .filter()
+    .sort()
+    .paginate()
+    .fields();
   const result = await productQuery.modelQuery;
   return result;
-  
 };
 const getSingleProductFromDB = async (id: string) => {
   // checking deleted product
@@ -51,7 +47,7 @@ const getSingleProductFromDB = async (id: string) => {
 const updateProductIntoDB = async (
   id: string,
   payload: Partial<TProduct>,
-  file: any
+  file: any,
 ) => {
   // Check if the product exists
   const product = await Product.findById(id);
@@ -76,7 +72,10 @@ const updateProductIntoDB = async (
   }
 
   // Update product with new data
-  const result = await Product.findByIdAndUpdate(id, payload, { new: true, runValidators: true });
+  const result = await Product.findByIdAndUpdate(id, payload, {
+    new: true,
+    runValidators: true,
+  });
 
   return result;
 };

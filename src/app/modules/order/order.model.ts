@@ -3,9 +3,9 @@ import { TOrder, TOrderedProducts } from './order.interface';
 const orderedProductsSchema = new Schema<TOrderedProducts>({
   productId: {
     type: Schema.Types.ObjectId,
-    ref: 'Product'
-  }
-})
+    ref: 'Product',
+  },
+});
 const orderSchema = new Schema<TOrder>({
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -13,7 +13,7 @@ const orderSchema = new Schema<TOrder>({
   deliveryAddress: { type: String, required: true },
   products: [orderedProductsSchema],
   totalPrice: { type: Number, required: true },
-  isPaid: {type: Boolean, required: true}
+  isPaid: { type: Boolean, required: true },
 });
 
 export const Order = model<TOrder>('Order', orderSchema);

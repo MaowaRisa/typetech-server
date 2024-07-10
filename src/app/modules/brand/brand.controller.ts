@@ -4,11 +4,8 @@ import sendResponse from '../../utility/sendResponse';
 import { BrandServices } from './brand.service';
 import httpStatus from 'http-status';
 
-
 const createBrand: RequestHandler = catchAsync(async (req, res) => {
-  const result = await BrandServices.createBrandIntoDB(
-    req.body,
-  );
+  const result = await BrandServices.createBrandIntoDB(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -28,10 +25,7 @@ const getAllBrands: RequestHandler = catchAsync(async (req, res) => {
 
 const updateBrand: RequestHandler = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const result = await BrandServices.updateBrandIntoDB(
-    id,
-    req.body,
-  );
+  const result = await BrandServices.updateBrandIntoDB(id, req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -42,5 +36,5 @@ const updateBrand: RequestHandler = catchAsync(async (req, res) => {
 export const BrandControllers = {
   createBrand,
   getAllBrands,
-  updateBrand
+  updateBrand,
 };

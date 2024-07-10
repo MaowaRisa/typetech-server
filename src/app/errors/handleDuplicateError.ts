@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { TErrorSources, TGenericErrorResponse } from "../interface/error";
+import { TErrorSources, TGenericErrorResponse } from '../interface/error';
 
 const handleDuplicateError = (error: any): TGenericErrorResponse => {
   const regex = /{ name: "([^"]+)" }/;

@@ -8,14 +8,14 @@ const app: Application = express();
 
 // Parsers
 app.use(express.json());
-app.use(cors({origin:['http://localhost:5173']}));
+app.use(cors({ origin: ['http://localhost:5173'] }));
 
 // application routes
 app.use('/api/', router);
 app.get('/', (req: Request, res: Response) => {
-    res.status(200).json({
-      message: `Welcome to typeTech server.`,
-    });
+  res.status(200).json({
+    message: `Welcome to typeTech server.`,
+  });
 });
 // // middleware for error handling
 app.use(globalErrorHandler);

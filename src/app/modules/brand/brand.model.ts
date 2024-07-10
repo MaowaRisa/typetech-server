@@ -13,7 +13,4 @@ const brandSchema = new Schema<TBrand>(
     timestamps: true,
   },
 );
-export const Brand = model<TBrand>(
-  'Brand',
-  brandSchema,
-);
+export const Brand = model<TBrand>('Brand', brandSchema);

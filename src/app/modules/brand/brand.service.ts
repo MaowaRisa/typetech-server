@@ -10,10 +10,7 @@ const getAllBrandsFromDB = async () => {
   return result;
 };
 
-const updateBrandIntoDB = async (
-  id: string,
-  payload: Partial<TBrand>,
-) => {
+const updateBrandIntoDB = async (id: string, payload: Partial<TBrand>) => {
   const result = await Brand.findOneAndUpdate({ _id: id }, payload, {
     new: true,
   });

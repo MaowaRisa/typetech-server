@@ -7,17 +7,13 @@ const router = express.Router();
 
 router.post(
   '/',
-  validateRequest(
-    brandValidations.createBrandValidationSchema
-  ),
+  validateRequest(brandValidations.createBrandValidationSchema),
   BrandControllers.createBrand,
 );
 router.get('/', BrandControllers.getAllBrands);
 router.patch(
   '/:id',
-  validateRequest(
-    brandValidations.updateBrandValidationSchema
-  ),
+  validateRequest(brandValidations.updateBrandValidationSchema),
   BrandControllers.updateBrand,
 );
 

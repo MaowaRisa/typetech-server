@@ -6,7 +6,11 @@ import validateRequest from '../../middlewares/validateRequest';
 const router = express.Router();
 
 // create new order
-router.post('/', validateRequest(orderValidation.createOrderSchema),OrderControllers.createNewOrder);
+router.post(
+  '/',
+  validateRequest(orderValidation.createOrderSchema),
+  OrderControllers.createNewOrder,
+);
 // retrieve all orders
 router.get('/', OrderControllers.getAllOrders);
 
