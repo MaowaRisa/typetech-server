@@ -8,6 +8,10 @@ const brandSchema = new Schema<TBrand>(
       required: true,
       unique: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
