@@ -1,27 +1,27 @@
-# Inventory Management
+# Type tech - Mechanical Keyboard E-Commerce
 This is a straightforward Express application designed to manage product and order functionalities. It offers an API for creating, reading, updating, and deleting, searching products and orders, utilizing Express and MongoDB using Mongoose. Additionally, ESLint and Prettier have been employed for code quality and formatting.
 
 ## Project API for products and orders management
 project live link : 
-https://assignmentinventory.vercel.app/
+
 ### Products
 1. Create new products(post)
-https://assignmentinventory.vercel.app/api/products
+
 3. Retrieve all products 
-https://assignmentinventory.vercel.app/api/products
-4. Search for products by name, description and category 
-https://assignmentinventory.vercel.app/api/products?searchTerm=Red
+
+4. Search for products by name, description 
+
 5. Update product
-https://assignmentinventory.vercel.app/api/products/productId
+
 6. Delete product
-https://assignmentinventory.vercel.app/api/products/productId
+
 ### Orders
 1. Create new order
-https://assignmentinventory.vercel.app/api/orders
+
 2. Retrieve all orders
-https://assignmentinventory.vercel.app/api/orders
+
 3. Get orders for specific email
-https://assignmentinventory.vercel.app/api/orders?email=email
+
 
 ## What you need to run this app
 - Node JS (used version : v20.11.1)

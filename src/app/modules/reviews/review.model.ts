@@ -1,10 +1,10 @@
-import { Schema, model } from "mongoose";
-import { TReview } from "./review.interface";
+import { Schema, model } from 'mongoose';
+import { TReview } from './review.interface';
 
 const reviewSchema = new Schema<TReview>({
   product: {
     type: Schema.Types.ObjectId,
-    ref: "Product",
+    ref: 'Product',
     required: true,
   },
   email: {
@@ -21,4 +21,4 @@ const reviewSchema = new Schema<TReview>({
   },
 });
 
-export const Review = model<TReview>("Review", reviewSchema);
+export const Review = model<TReview>('Review', reviewSchema);

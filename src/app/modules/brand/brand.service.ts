@@ -3,7 +3,7 @@ import { sendImageToCloudinary } from '../../utility/sendImageToCloudinary';
 import { TBrand } from './brand.interface';
 import { Brand } from './brand.model';
 
-const createBrandIntoDB = async (payload: TBrand, file:any) => {
+const createBrandIntoDB = async (payload: TBrand, file: any) => {
   // brand image upload
   if (file) {
     const imageName = `${payload.name}`;

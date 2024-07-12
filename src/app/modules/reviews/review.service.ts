@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Product } from "../product/product.model";
-import { TReview } from "./review.interface";
-import { Review } from "./review.model";
+import { Product } from '../product/product.model';
+import { TReview } from './review.interface';
+import { Review } from './review.model';
 
 const addReview = async (
   id: string,
-  reviewData: Partial<TReview>
+  reviewData: Partial<TReview>,
 ): Promise<TReview | any> => {
   const session = await Product.startSession();
 
   const product = await Product.findById({ _id: id });
 
   if (!product) {
-    throw new Error("Product not found");
+    throw new Error('Product not found');
   }
 
   try {
@@ -25,7 +25,7 @@ const addReview = async (
           ...reviewData,
         },
       ],
-      { session }
+      { session },
     );
 
     const reviewsCount = await Review.countDocuments({
@@ -41,7 +41,7 @@ const addReview = async (
 
     return review[0];
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     await session.abortTransaction();
     session.endSession();
     throw error;
@@ -51,12 +51,11 @@ const getAllReviews = async (id: string): Promise<TReview[]> => {
   const product = await Product.findOne({ _id: id });
 
   if (!product) {
-    throw new Error("Product not found");
+    throw new Error('Product not found');
   }
 
   return await Review.find({ product: product._id });
 };
-
 
 export const ReviewServices = {
   addReview,
