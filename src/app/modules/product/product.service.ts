@@ -27,7 +27,7 @@ const createProductIntoDB = async (file: any, payload: TProduct) => {
   return result;
 };
 const getAllProductsFromDB = async (query: Record<string, unknown>) => {
-  const productQuery = new QueryBuilder(Product.find(), query)
+  const productQuery = new QueryBuilder(Product.find().populate('brand'), query)
     .search(productSearchableFields)
     .filter()
     .sort()
