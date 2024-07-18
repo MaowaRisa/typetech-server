@@ -1,8 +1,9 @@
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
 
 export type TProduct = {
   name: string;
-  brand: Types.ObjectId;
+  slug: string;
+  brand: string;
   quantity: number;
   price: number;
   rating: number;
@@ -12,5 +13,6 @@ export type TProduct = {
 };
 // static method
 export interface IProductModel extends Model<TProduct> {
+  isProductExist(name: string): Promise<TProduct | null>;
   isProductDeleted(id: string): Promise<TProduct | null>;
 }

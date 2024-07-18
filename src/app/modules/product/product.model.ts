@@ -4,7 +4,8 @@ import { IProductModel, TProduct } from './product.interface';
 const productSchema = new Schema<TProduct, IProductModel>(
   {
     name: { type: String, required: true },
-    brand: { type: Schema.Types.ObjectId, ref: 'Brand' },
+    slug: { type: String, required: true },
+    brand: { type: String, required:  true },
     quantity: { type: Number, required: true },
     price: { type: Number, required: true },
     rating: { type: Number, default: 0 },
@@ -17,6 +18,10 @@ const productSchema = new Schema<TProduct, IProductModel>(
   },
 );
 // Static method for checking the deleted product
+productSchema.statics.isProductExist = async function (name: string) {
+  const product = await Product.findOne({ name: name, isDeleted: false });
+  return product;
+};
 productSchema.statics.isProductDeleted = async function (id: string) {
   const deletedProduct = await Product.findOne({ _id: id, isDeleted: true });
   return deletedProduct;

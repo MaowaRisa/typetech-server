@@ -2,38 +2,32 @@
 import httpStatus from 'http-status';
 import QueryBuilder from '../../builder/QueryBuilder';
 import AppError from '../../errors/AppError';
-import { Brand } from '../brand/brand.model';
 import { productSearchableFields } from './product.constants';
 import { TProduct } from './product.interface';
 import { Product } from './product.model';
-import { sendImageToCloudinary } from '../../utility/sendImageToCloudinary';
+import { generateSlug } from './product.utils';
 
-const createProductIntoDB = async (file: any, payload: TProduct) => {
-  // check brand is valid
-  const brand = await Brand.findById({ _id: payload.brand });
-  if (!brand) {
-    throw new AppError(httpStatus.NOT_FOUND, 'No brand available');
-  }
-  // file upload
-  if (file) {
-    const imageName = `${payload.brand}${payload?.name}`;
-    const path = file?.path;
+const createProductIntoDB = async (payload: TProduct) => {
 
-    //send image to cloudinary
-    const { secure_url } = await sendImageToCloudinary(imageName, path);
-    payload.image = secure_url as string;
+  const isProductExist = await Product.isProductExist(payload.name)
+  if(isProductExist){
+    throw new AppError(httpStatus.CONFLICT, 'Product already exists!')
   }
+  const slug = generateSlug(payload.name);
+  payload.slug = slug;
+
   const result = await Product.create(payload);
   return result;
 };
 const getAllProductsFromDB = async (query: Record<string, unknown>) => {
-  const productQuery = new QueryBuilder(Product.find().populate('brand'), query)
+  const productQuery = new QueryBuilder(Product.find(), query)
     .search(productSearchableFields)
     .filter()
     .sort()
     .paginate()
     .fields();
   const result = await productQuery.modelQuery;
+
   return result;
 };
 const getSingleProductFromDB = async (id: string) => {
@@ -45,34 +39,16 @@ const getSingleProductFromDB = async (id: string) => {
   return result;
 };
 const updateProductIntoDB = async (
-  id: string,
+  slug: string,
   payload: Partial<TProduct>,
-  file: any,
 ) => {
   // Check if the product exists
-  const product = await Product.findById(id);
+  const product = await Product.find({slug: slug});
   if (!product) {
     throw new AppError(httpStatus.NOT_FOUND, 'Product not found');
   }
-
-  // Check if the brand is valid
-  const brand = await Brand.findById({ _id: payload.brand });
-  if (!brand) {
-    throw new AppError(httpStatus.NOT_FOUND, 'No brand available');
-  }
-
-  // Handle image upload if file is provided
-  if (file) {
-    const imageName = `${payload.brand}${payload?.name}`;
-    const path = file?.path;
-
-    // Send image to cloudinary
-    const { secure_url } = await sendImageToCloudinary(imageName, path);
-    payload.image = secure_url as string;
-  }
-
   // Update product with new data
-  const result = await Product.findByIdAndUpdate(id, payload, {
+  const result = await Product.findOneAndUpdate({slug: slug}, payload, {
     new: true,
     runValidators: true,
   });
